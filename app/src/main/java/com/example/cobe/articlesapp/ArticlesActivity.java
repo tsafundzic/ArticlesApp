@@ -3,8 +3,11 @@ package com.example.cobe.articlesapp;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
-public class ArticlesActivity extends AppCompatActivity {
+import com.example.cobe.articlesapp.ui.addArticle.AddArticleActivity;
+
+public class ArticlesActivity extends AppCompatActivity implements View.OnClickListener {
 
     FloatingActionButton floatingActionButton;
 
@@ -17,6 +20,12 @@ public class ArticlesActivity extends AppCompatActivity {
     }
 
     private void setUI() {
-        floatingActionButton=findViewById(R.id.fabAddNewArticle);
+        floatingActionButton = findViewById(R.id.fabAddNewArticle);
+        floatingActionButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        startActivity(AddArticleActivity.getLaunchIntent(this));
     }
 }

@@ -1,0 +1,74 @@
+package com.example.cobe.articlesapp.ui.addArticle;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+
+import com.example.cobe.articlesapp.R;
+import com.example.cobe.articlesapp.common.ValidationUtils;
+
+public class AddArticleActivity extends AppCompatActivity implements View.OnClickListener {
+
+    EditText author;
+    EditText title;
+    EditText description;
+    Spinner type;
+    Button save;
+    ImageView back;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_article);
+        setUI();
+    }
+
+    private void setUI() {
+        author = findViewById(R.id.etAuthor);
+        title = findViewById(R.id.etTitle);
+        description = findViewById(R.id.etDescription);
+        type = findViewById(R.id.spTypes);
+        save = findViewById(R.id.btnSave);
+        back = findViewById(R.id.ivBack);
+        back.setOnClickListener(this);
+        save.setOnClickListener(this);
+    }
+
+    public static Intent getLaunchIntent(Context from) {
+        return new Intent(from, AddArticleActivity.class);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ivBack:
+                onBackPressed();
+                break;
+            case R.id.btnSave:
+                checkIfInputsAreOK();
+                break;
+        }
+    }
+
+    private void checkIfInputsAreOK() {
+        if (ValidationUtils.isInputedEmpty(author.getText().toString())) {
+            author.setError(getString(R.string.wrong_input));
+        } else if (ValidationUtils.isInputedEmpty(title.getText().toString())) {
+            title.setError(getString(R.string.wrong_input));
+        } else if (ValidationUtils.isInputedEmpty(description.getText().toString())) {
+            description.setError(getString(R.string.wrong_input));
+        } else {
+            addNewArticle();
+        }
+    }
+
+    private void addNewArticle() {
+
+    }
+}

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_floatin_action_button">10dp</dimen>
+    <dimen name="margin_edittext">10dp</dimen>
+    <dimen name="margin_action_bar">8dp</dimen>
+    <dimen name="text_action_bar_title">20sp</dimen>
 </resources>
