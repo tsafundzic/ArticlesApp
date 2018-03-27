@@ -11,7 +11,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.cobe.articlesapp.R;
+import com.example.cobe.articlesapp.common.DBHelper;
 import com.example.cobe.articlesapp.common.ValidationUtils;
+import com.example.cobe.articlesapp.model.Article;
+import com.example.cobe.articlesapp.ui.articles.ArticleAdapter;
+
+import java.util.List;
+
+import io.realm.Realm;
 
 public class AddArticleActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,6 +34,8 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_article);
         setUI();
+
+        Realm.init(getApplicationContext());
     }
 
     private void setUI() {
@@ -69,6 +78,12 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addNewArticle() {
+        String selectedtype = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
+        List<Article> articles = DBHelper.getInstance().loadArticles();
+        int id = articles.size() + 1;
+        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
+        DBHelper.getInstance().addArticle(article);
 
+        finish();
     }
 }

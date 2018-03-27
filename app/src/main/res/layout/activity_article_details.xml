@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlDetailActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/margin_action_bar">
+
+        <ImageView
+            android:id="@+id/ivDetailBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvActionBarDetailName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/article_details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_action_bar_title" />
+
+        <ImageView
+            android:id="@+id/ivDetailEditArticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_edit"
+            android:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvDetailTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_action_bar_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDetailAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_edittext"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_author_list" />
+
+    <TextView
+        android:id="@+id/tvDetailType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_edittext"
+        android:layout_marginLeft="@dimen/margin_edittext"
+        android:layout_marginRight="@dimen/margin_edittext"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_author_list" />
+
+    <TextView
+        android:id="@+id/tvDetailDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_edittext" />
+
+</LinearLayout>
