@@ -22,4 +22,7 @@
     <string name="edit_article">Edit article</string>
     <string name="update">Update</string>
     <string name="updated_successuful">Article updated successuful</string>
+    <string name="are_you_sure">Are you sure you want to delete?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

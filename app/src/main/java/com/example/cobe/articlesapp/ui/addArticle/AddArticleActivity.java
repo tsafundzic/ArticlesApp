@@ -79,7 +79,7 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
     private void addNewArticle() {
         String selectedtype = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
         List<Article> articles = DBHelper.getInstance().loadArticles();
-        int id = articles.size() + 1;
+        int id = articles.get(articles.size() - 1).getId();
         Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
         DBHelper.getInstance().addArticle(article);
         finish();

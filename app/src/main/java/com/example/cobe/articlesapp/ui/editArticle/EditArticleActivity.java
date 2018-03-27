@@ -34,6 +34,7 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
         setUI();
         recieverArticleID();
         setTextToEditext();
+        setSpinner();
     }
 
     private void setUI() {
@@ -58,6 +59,10 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
         author.setText(article.getAuthor());
         title.setText(article.getTitle());
         description.setText(article.getDescription());
+
+    }
+
+    private void setSpinner() {
         for (int i = 0; i < type.getCount(); i++) {
             if (type.getItemAtPosition(i).equals(article.getType())) {
                 type.setSelection(i);

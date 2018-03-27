@@ -1,6 +1,8 @@
 package com.example.cobe.articlesapp.ui.articles;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -76,7 +78,24 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
 
     @Override
     public void onArticleLongClick(int id) {
-        Toast.makeText(getContext(), "kvik", Toast.LENGTH_SHORT).show();
+        startDialog();
+    }
 
+    public void startDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(getString(R.string.are_you_sure))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        DBHelper.getInstance().deleteArticle(id);
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

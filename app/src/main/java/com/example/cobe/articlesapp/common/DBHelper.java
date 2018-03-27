@@ -46,7 +46,12 @@ public class DBHelper {
     }
 
     public void deleteArticle(int id) {
-        realm.where(Article.class).equalTo("id", id).findFirst().deleteFromRealm();
+        realm.beginTransaction();
+        Article article = realm.where(Article.class).equalTo("id", id).findFirst();
+        if (article != null) {
+            article.deleteFromRealm();
+        } else
+            realm.commitTransaction();
     }
 
 }
