@@ -45,4 +45,8 @@ public class DBHelper {
         return realm.where(Article.class).equalTo("id", id).findFirst();
     }
 
+    public void deleteArticle(int id) {
+        realm.where(Article.class).equalTo("id", id).findFirst().deleteFromRealm();
+    }
+
 }

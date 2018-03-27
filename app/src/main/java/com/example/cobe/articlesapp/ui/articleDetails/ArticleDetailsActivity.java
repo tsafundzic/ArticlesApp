@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.DBHelper;
 import com.example.cobe.articlesapp.model.Article;
+import com.example.cobe.articlesapp.ui.editArticle.EditArticleActivity;
 
 public class ArticleDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +22,7 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
     TextView description;
     ImageView back;
     ImageView editArticle;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
 
     private void recieverArticleID() {
         Intent intent = getIntent();
-        int id = intent.getIntExtra("ID", 0);
+        id = intent.getIntExtra("ID", 0);
         article = DBHelper.getInstance().returnArticleBasedOnID(id);
     }
 
@@ -72,8 +74,12 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
                 onBackPressed();
                 break;
             case R.id.ivDetailEditArticle:
-
+                startEditing();
                 break;
         }
+    }
+
+    private void startEditing() {
+        startActivity(EditArticleActivity.getLauchIntent(getApplicationContext(), id));
     }
 }

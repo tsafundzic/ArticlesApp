@@ -14,7 +14,6 @@ import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.DBHelper;
 import com.example.cobe.articlesapp.common.ValidationUtils;
 import com.example.cobe.articlesapp.model.Article;
-import com.example.cobe.articlesapp.ui.articles.ArticleAdapter;
 
 import java.util.List;
 
@@ -83,7 +82,6 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
         int id = articles.size() + 1;
         Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
         DBHelper.getInstance().addArticle(article);
-
         finish();
     }
 }

@@ -9,19 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.DBHelper;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
 import com.example.cobe.articlesapp.ui.articleDetails.ArticleDetailsActivity;
+import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticlesListFragment extends Fragment implements OnArticleClickListener {
+public class ArticlesListFragment extends Fragment implements OnArticleClickListener, OnArticleLongClickListener {
 
     RecyclerView recyclerView;
     ArticleAdapter adapter;
@@ -50,6 +52,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     private void loadArticles() {
         List<Article> articles = DBHelper.getInstance().loadArticles();
         adapter.setArticles(articles);
+        adapter.notifyDataSetChanged();
     }
 
     private void setAdapter() {
@@ -58,6 +61,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ArticleAdapter();
         adapter.setOnarticleClickListener(this);
+        adapter.setOnArticleLongClickListener(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -68,5 +72,11 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     @Override
     public void onArticleClick(int id) {
         startActivity(ArticleDetailsActivity.getLauchIntent(getActivity(), id));
+    }
+
+    @Override
+    public void onArticleLongClick(int id) {
+        Toast.makeText(getContext(), "kvik", Toast.LENGTH_SHORT).show();
+
     }
 }

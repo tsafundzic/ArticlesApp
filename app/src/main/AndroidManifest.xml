@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.addArticle.AddArticleActivity" />
-        <activity android:name=".ui.articleDetails.ArticleDetailsActivity"></activity>
+        <activity android:name=".ui.articleDetails.ArticleDetailsActivity" />
+        <activity android:name=".ui.editArticle.EditArticleActivity"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
+import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private List<Article> articles = new ArrayList<>();
 
     private OnArticleClickListener onArticleClickListener;
+    private OnArticleLongClickListener onArticleLongClickListener;
 
     public void setOnarticleClickListener(OnArticleClickListener onArticleClickListener) {
         this.onArticleClickListener = onArticleClickListener;
+    }
+
+    public void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
+        this.onArticleLongClickListener = onArticleLongClickListener;
     }
 
     public void setArticles(List<Article> articles) {
@@ -41,7 +47,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     @Override
     public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_list_item, parent, false);
-        return new ArticleViewHolder(view, onArticleClickListener);
+        return new ArticleViewHolder(view, onArticleClickListener, onArticleLongClickListener);
     }
 
 

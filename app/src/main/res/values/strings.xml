@@ -15,10 +15,11 @@
         <item>Other</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data">No data</string>
     <string name="article_details">Article details</string>
     <string name="author_format">Author: %1$s</string>
     <string name="type_format">Type: %1$s</string>
+    <string name="edit_article">Edit article</string>
+    <string name="update">Update</string>
+    <string name="updated_successuful">Article updated successuful</string>
 </resources>
