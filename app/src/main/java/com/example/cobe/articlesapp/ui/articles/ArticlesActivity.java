@@ -34,7 +34,7 @@ public class ArticlesActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
     }
 
-    private void checkIfDatabaseIsEmpty() {
+    public void checkIfDatabaseIsEmpty() {
         Realm.init(getApplicationContext());
 
         if (DBHelper.getInstance().isRealmEmpty()) {

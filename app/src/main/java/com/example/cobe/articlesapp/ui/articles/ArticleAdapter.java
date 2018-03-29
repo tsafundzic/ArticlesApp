@@ -55,8 +55,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     public void onBindViewHolder(ArticleViewHolder holder, int position) {
         Article article = articles.get(position);
         if (article != null) {
-            holder.title.setText(article.getTitle());
-            holder.author.setText(article.getAuthor());
+            holder.setArticle(article);
         }
     }
 

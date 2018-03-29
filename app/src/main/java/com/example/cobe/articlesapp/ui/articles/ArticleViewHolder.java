@@ -22,7 +22,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     TextView title;
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
-    private List<Article> articles = DBHelper.getInstance().loadArticles();
+    private int id;
 
     public ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
         super(itemView);
@@ -36,12 +36,18 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View view) {
-        onArticleClickListener.onArticleClick(articles.get(getAdapterPosition()).getId());
+        onArticleClickListener.onArticleClick(id);
     }
 
     @Override
     public boolean onLongClick(View view) {
-        onArticleLongClickListener.onArticleLongClick(articles.get(getAdapterPosition()).getId());
+        onArticleLongClickListener.onArticleLongClick(id);
         return true;
+    }
+
+    public void setArticle(Article article) {
+        id = article.getId();
+        title.setText(article.getTitle());
+        author.setText(article.getAuthor());
     }
 }

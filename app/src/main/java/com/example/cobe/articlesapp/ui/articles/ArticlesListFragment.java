@@ -61,6 +61,9 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         List<Article> articles = DBHelper.getInstance().loadArticles();
         adapter.setArticles(articles);
         adapter.notifyDataSetChanged();
+        if (articles.size() == 0) {
+            ((ArticlesActivity)getActivity()).checkIfDatabaseIsEmpty();
+        }
     }
 
     private void setAdapter() {
@@ -84,16 +87,16 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
 
     @Override
     public void onArticleLongClick(int id) {
-        startDialog();
+        startDialog(id);
     }
 
-    public void startDialog() {
+    public void startDialog(final int articleIdForRemove) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(getString(R.string.are_you_sure))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        DBHelper.getInstance().deleteArticle(id);
+                        DBHelper.getInstance().deleteArticle(articleIdForRemove);
                         loadArticles();
                     }
                 })

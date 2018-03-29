@@ -47,7 +47,7 @@ public class DBHelper {
 
     public void deleteArticle(int id) {
         realm.beginTransaction();
-        Article article = realm.where(Article.class).equalTo("id", id).findFirst();
+        Article article = returnArticleBasedOnID(id);
         if (article != null) {
             article.deleteFromRealm();
         }
