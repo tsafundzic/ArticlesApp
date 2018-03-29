@@ -30,42 +30,53 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/etEditAuthor"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_edittext"
-        android:hint="@string/author" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/etEditTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_edittext"
-        android:hint="@string/title" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etEditDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_edittext"
-        android:hint="@string/description" />
+            <EditText
+                android:id="@+id/etEditAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_edittext"
+                android:hint="@string/author" />
 
-    <Spinner
-        android:id="@+id/spEditTypes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/spinner_types"
-        android:layout_margin="@dimen/margin_edittext" />
+            <EditText
+                android:id="@+id/etEditTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_edittext"
+                android:hint="@string/title" />
 
-    <Button
-        android:id="@+id/btnEditSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_edittext"
-        android:background="@color/colorPrimary"
-        android:text="@string/update"
-        android:textColor="@color/white" />
+            <EditText
+                android:id="@+id/etEditDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_edittext"
+                android:hint="@string/description" />
 
+            <Spinner
+                android:id="@+id/spEditTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_edittext"
+                android:entries="@array/spinner_types" />
+
+            <Button
+                android:id="@+id/btnEditSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_edittext"
+                android:background="@color/colorPrimary"
+                android:text="@string/update"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 

@@ -25,11 +25,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
 
-    public void setOnarticleClickListener(OnArticleClickListener onArticleClickListener) {
+    void setOnarticleClickListener(OnArticleClickListener onArticleClickListener) {
         this.onArticleClickListener = onArticleClickListener;
     }
 
-    public void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
+    void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
         this.onArticleLongClickListener = onArticleLongClickListener;
     }
 
@@ -56,7 +56,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         Article article = articles.get(position);
         if (article != null) {
             holder.title.setText(article.getTitle());
-            holder.author.setText(article.getTitle());
+            holder.author.setText(article.getAuthor());
         }
     }
 

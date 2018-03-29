@@ -50,8 +50,8 @@ public class DBHelper {
         Article article = realm.where(Article.class).equalTo("id", id).findFirst();
         if (article != null) {
             article.deleteFromRealm();
-        } else
-            realm.commitTransaction();
+        }
+        realm.commitTransaction();
     }
 
 }

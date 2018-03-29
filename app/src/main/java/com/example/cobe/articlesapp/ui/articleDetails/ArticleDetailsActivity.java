@@ -35,6 +35,12 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
 
     }
 
+    @Override
+    protected void onResume() {
+        setText();
+        super.onResume();
+    }
+
     private void setText() {
         title.setText(article.getTitle());
         author.setText(String.format(getString(R.string.author_format), article.getAuthor()));

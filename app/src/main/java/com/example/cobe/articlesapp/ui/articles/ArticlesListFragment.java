@@ -51,6 +51,12 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         loadArticles();
     }
 
+    @Override
+    public void onResume() {
+        loadArticles();
+        super.onResume();
+    }
+
     private void loadArticles() {
         List<Article> articles = DBHelper.getInstance().loadArticles();
         adapter.setArticles(articles);
@@ -81,13 +87,14 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         startDialog();
     }
 
-    public void startDialog(){
+    public void startDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(getString(R.string.are_you_sure))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         DBHelper.getInstance().deleteArticle(id);
+                        loadArticles();
                     }
                 })
                 .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {

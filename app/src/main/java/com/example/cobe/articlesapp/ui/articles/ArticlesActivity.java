@@ -28,6 +28,12 @@ public class ArticlesActivity extends AppCompatActivity implements View.OnClickL
         setUI();
     }
 
+    @Override
+    protected void onResume() {
+        checkIfDatabaseIsEmpty();
+        super.onResume();
+    }
+
     private void checkIfDatabaseIsEmpty() {
         Realm.init(getApplicationContext());
 

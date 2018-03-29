@@ -42,6 +42,6 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public boolean onLongClick(View view) {
         onArticleLongClickListener.onArticleLongClick(articles.get(getAdapterPosition()).getId());
-        return false;
+        return true;
     }
 }
