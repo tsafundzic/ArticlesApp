@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.DBHelper;
@@ -71,7 +70,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ArticleAdapter();
-        adapter.setOnarticleClickListener(this);
+        adapter.setOnArticleClickListener(this);
         adapter.setOnArticleLongClickListener(this);
         recyclerView.setAdapter(adapter);
     }

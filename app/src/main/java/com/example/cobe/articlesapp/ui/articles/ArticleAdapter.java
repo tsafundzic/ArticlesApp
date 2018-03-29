@@ -25,7 +25,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
 
-    void setOnarticleClickListener(OnArticleClickListener onArticleClickListener) {
+    void setOnArticleClickListener(OnArticleClickListener onArticleClickListener) {
         this.onArticleClickListener = onArticleClickListener;
     }
 
