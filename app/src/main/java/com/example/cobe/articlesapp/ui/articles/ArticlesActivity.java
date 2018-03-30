@@ -1,23 +1,21 @@
 package com.example.cobe.articlesapp.ui.articles;
 
-import android.support.design.widget.FloatingActionButton;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 
+import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.DBHelper;
+import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.ui.addArticle.AddArticleActivity;
 
 import io.realm.Realm;
 
 public class ArticlesActivity extends AppCompatActivity implements View.OnClickListener {
 
-    FloatingActionButton floatingActionButton;
-    FrameLayout articleList;
+    private final DatabaseInterface database = App.getInstance().getDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +35,22 @@ public class ArticlesActivity extends AppCompatActivity implements View.OnClickL
     public void checkIfDatabaseIsEmpty() {
         Realm.init(getApplicationContext());
 
-        if (DBHelper.getInstance().isRealmEmpty()) {
+        if (database.isEmpty()) {
             Fragment fragment = new ListIsEmptyFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.articleList, fragment);
             fragmentTransaction.commit();
         } else {
             Fragment fragment = new ArticlesListFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction(); // TODO: 30/03/2018  promijeni u jedan fragment koji ima empty state view!
             fragmentTransaction.replace(R.id.articleList, fragment);
             fragmentTransaction.commit();
         }
     }
 
     private void setUI() {
-        floatingActionButton = findViewById(R.id.fabAddNewArticle);
+        View floatingActionButton = findViewById(R.id.fabAddNewArticle);
         floatingActionButton.setOnClickListener(this);
-        articleList = findViewById(R.id.articleList);
     }
 
     @Override

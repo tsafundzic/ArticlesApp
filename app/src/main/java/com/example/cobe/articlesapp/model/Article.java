@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by cobe on 26/03/2018.
  */
 
-public class Article extends RealmObject{
+public class Article extends RealmObject {
 
     @PrimaryKey
     private int id;
@@ -16,8 +16,7 @@ public class Article extends RealmObject{
     private String description;
     private String type;
 
-    public Article(){
-
+    public Article() {
     }
 
     public Article(int id, String author, String title, String description, String type) {
@@ -40,10 +39,6 @@ public class Article extends RealmObject{
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -54,10 +49,6 @@ public class Article extends RealmObject{
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getType() {

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.DBHelper;
+import com.example.cobe.articlesapp.database.DatabaseHelper;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.editArticle.EditArticleActivity;
 
@@ -51,7 +51,7 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
     private void recieverArticleID() {
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", 0);
-        article = DBHelper.getInstance().returnArticleBasedOnID(id);
+        article = DatabaseHelper.getInstance().returnArticleBasedOnID(id);
     }
 
     private void setUI() {

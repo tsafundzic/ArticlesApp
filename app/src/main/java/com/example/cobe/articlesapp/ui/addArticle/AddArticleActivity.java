@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.DBHelper;
+import com.example.cobe.articlesapp.database.DatabaseHelper;
 import com.example.cobe.articlesapp.common.ValidationUtils;
 import com.example.cobe.articlesapp.model.Article;
 
@@ -65,11 +65,11 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void checkIfInputsAreOK() {
-        if (ValidationUtils.isInputedEmpty(author.getText().toString())) {
+        if (ValidationUtils.isEmpty(author.getText().toString())) {
             author.setError(getString(R.string.wrong_input));
-        } else if (ValidationUtils.isInputedEmpty(title.getText().toString())) {
+        } else if (ValidationUtils.isEmpty(title.getText().toString())) {
             title.setError(getString(R.string.wrong_input));
-        } else if (ValidationUtils.isInputedEmpty(description.getText().toString())) {
+        } else if (ValidationUtils.isEmpty(description.getText().toString())) {
             description.setError(getString(R.string.wrong_input));
         } else {
             addNewArticle();
@@ -78,7 +78,7 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
 
     private void addNewArticle() {
         String selectedtype = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
-        List<Article> articles = DBHelper.getInstance().loadArticles();
+        List<Article> articles = DatabaseHelper.getInstance().loadArticles();
         int id;
         if (articles.size() != 0) {
             id = articles.get(articles.size() - 1).getId() + 1;
@@ -86,7 +86,7 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
             id = 0;
         }
         Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
-        DBHelper.getInstance().addArticle(article);
+        DatabaseHelper.getInstance().addArticle(article);
         finish();
     }
 }

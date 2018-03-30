@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.DBHelper;
+import com.example.cobe.articlesapp.database.DatabaseHelper;
 import com.example.cobe.articlesapp.model.Article;
 
 public class EditArticleActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,7 +52,7 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
     private void recieverArticleID() {
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", 0);
-        article = DBHelper.getInstance().returnArticleBasedOnID(id);
+        article = DatabaseHelper.getInstance().returnArticleBasedOnID(id);
     }
 
     private void setTextToEditext() {
@@ -93,6 +93,6 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
     private void updateData() {
         String selectedtype = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
         Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
-        DBHelper.getInstance().addArticle(article);
+        DatabaseHelper.getInstance().addArticle(article);
     }
 }

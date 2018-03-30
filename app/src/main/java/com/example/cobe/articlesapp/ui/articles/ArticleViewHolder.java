@@ -5,12 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.DBHelper;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
-
-import java.util.List;
 
 /**
  * Created by cobe on 27/03/2018.

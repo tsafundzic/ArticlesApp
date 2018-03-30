@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.DBHelper;
+import com.example.cobe.articlesapp.database.DatabaseHelper;
+import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
 import com.example.cobe.articlesapp.ui.articleDetails.ArticleDetailsActivity;
@@ -29,6 +31,8 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     RecyclerView recyclerView;
     ArticleAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
+
+    private final DatabaseInterface database = App.getInstance().getDatabase();
 
     public ArticlesListFragment() {
         // Required empty public constructor
@@ -57,7 +61,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     }
 
     private void loadArticles() {
-        List<Article> articles = DBHelper.getInstance().loadArticles();
+        List<Article> articles = database.getArticles();
         adapter.setArticles(articles);
         adapter.notifyDataSetChanged();
         if (articles.size() == 0) {
@@ -95,7 +99,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        DBHelper.getInstance().deleteArticle(articleIdForRemove);
+                        database.deleteArticle(articleIdForRemove);
                         loadArticles();
                     }
                 })
