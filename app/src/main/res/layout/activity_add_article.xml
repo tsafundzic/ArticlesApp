@@ -13,7 +13,7 @@
         android:padding="@dimen/margin_action_bar">
 
         <ImageView
-            android:id="@+id/ivBack"
+            android:id="@+id/backToDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
@@ -64,11 +64,10 @@
                 android:id="@+id/spTypes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_edittext"
-                android:entries="@array/spinner_types" />
+                android:layout_margin="@dimen/margin_edittext" />
 
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/saveNewArticle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_edittext"

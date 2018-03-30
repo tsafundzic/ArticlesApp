@@ -5,25 +5,26 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.database.DatabaseHelper;
+import com.example.cobe.articlesapp.common.constants.ArticleType;
+import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
 
 public class EditArticleActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText author;
-    EditText title;
-    EditText description;
-    Spinner type;
-    Button save;
-    ImageView back;
-    Article article;
+    private final DatabaseInterface database = App.getInstance().getDatabase();
+
+    private EditText author;
+    private EditText title;
+    private EditText description;
+    private Spinner type;
+    private Article article;
     int id;
 
     @Override
@@ -32,9 +33,8 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_edit_article);
 
         setUI();
-        recieverArticleID();
-        setTextToEditext();
-        setSpinner();
+        receiveArticleID();
+        showData();
     }
 
     private void setUI() {
@@ -42,32 +42,25 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
         title = findViewById(R.id.etEditTitle);
         description = findViewById(R.id.etEditDescription);
         type = findViewById(R.id.spEditTypes);
-        save = findViewById(R.id.btnEditSave);
-        back = findViewById(R.id.ivEditBack);
+        View save = findViewById(R.id.saveChanges);
+        View back = findViewById(R.id.back);
 
         save.setOnClickListener(this);
         back.setOnClickListener(this);
     }
 
-    private void recieverArticleID() {
+    private void receiveArticleID() {
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", 0);
-        article = DatabaseHelper.getInstance().returnArticleBasedOnID(id);
+        article = database.getArticleById(id);
     }
 
-    private void setTextToEditext() {
+    private void showData() {
         author.setText(article.getAuthor());
         title.setText(article.getTitle());
         description.setText(article.getDescription());
-
-    }
-
-    private void setSpinner() {
-        for (int i = 0; i < type.getCount(); i++) {
-            if (type.getItemAtPosition(i).equals(article.getType())) {
-                type.setSelection(i);
-            }
-        }
+        type.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ArticleType.values()));
+        type.setSelection(ArticleType.getTypeIndex(article.getType()));
     }
 
     public static Intent getLauchIntent(Context from, int id) {
@@ -79,20 +72,20 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnEditSave:
+            case R.id.saveChanges:
                 updateData();
                 Toast.makeText(this, getString(R.string.updated_successuful), Toast.LENGTH_SHORT).show();
                 finish();
                 break;
-            case R.id.ivEditBack:
-                onBackPressed();
+            case R.id.back:
+                finish();
                 break;
         }
     }
 
     private void updateData() {
-        String selectedtype = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
-        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
-        DatabaseHelper.getInstance().addArticle(article);
+        String selectedType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
+        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedType);
+        database.addArticle(article);
     }
 }

@@ -7,14 +7,6 @@
     <string name="add_article">Add Article</string>
     <string name="wrong_input">Wrong input</string>
     <string name="articles">Articles</string>
-
-    <string-array name="spinner_types">
-        <item>Politic</item>
-        <item>Sport</item>
-        <item>Develop</item>
-        <item>Other</item>
-    </string-array>
-
     <string name="no_data">No data</string>
     <string name="article_details">Article details</string>
     <string name="author_format">Author: %1$s</string>
@@ -22,7 +14,7 @@
     <string name="edit_article">Edit article</string>
     <string name="update">Update</string>
     <string name="updated_successuful">Article updated successuful</string>
-    <string name="are_you_sure">Are you sure you want to delete?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="delete_article_dialog_are_you_sure_message">Are you sure you want to delete the article : %s?</string>
+    <string name="general_positive_button">Yes</string>
+    <string name="general_negative_button">No</string>
 </resources>

@@ -15,12 +15,18 @@ public class App extends Application {
 
     private static App instance;
 
-    private final DatabaseInterface database = new DatabaseHelper(Realm.getDefaultInstance());
+    private DatabaseInterface database;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Realm.init(this);
+        setDataBase();
+    }
+
+    private void setDataBase() {
+        database = new DatabaseHelper(Realm.getDefaultInstance());
     }
 
     public static App getInstance() {

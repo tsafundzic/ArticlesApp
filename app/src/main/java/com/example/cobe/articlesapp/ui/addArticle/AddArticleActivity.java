@@ -5,36 +5,33 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.database.DatabaseHelper;
 import com.example.cobe.articlesapp.common.ValidationUtils;
+import com.example.cobe.articlesapp.common.constants.ArticleType;
+import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
 
 import java.util.List;
 
-import io.realm.Realm;
-
 public class AddArticleActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText author;
-    EditText title;
-    EditText description;
-    Spinner type;
-    Button save;
-    ImageView back;
+    private final DatabaseInterface database = App.getInstance().getDatabase();
+
+    private EditText author;
+    private EditText title;
+    private EditText description;
+    private Spinner type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_article);
         setUI();
-
-        Realm.init(getApplicationContext());
     }
 
     private void setUI() {
@@ -42,8 +39,9 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
         title = findViewById(R.id.etTitle);
         description = findViewById(R.id.etDescription);
         type = findViewById(R.id.spTypes);
-        save = findViewById(R.id.btnSave);
-        back = findViewById(R.id.ivBack);
+        type.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ArticleType.values()));
+        View save = findViewById(R.id.saveNewArticle);
+        View back = findViewById(R.id.backToDetails);
         back.setOnClickListener(this);
         save.setOnClickListener(this);
     }
@@ -55,21 +53,19 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ivBack:
+            case R.id.backToDetails:
                 onBackPressed();
                 break;
-            case R.id.btnSave:
+            case R.id.saveNewArticle:
                 checkIfInputsAreOK();
                 break;
         }
     }
 
     private void checkIfInputsAreOK() {
-        if (ValidationUtils.isEmpty(author.getText().toString())) {
+        if (ValidationUtils.isEmpty(author.getText().toString()) || ValidationUtils.isEmpty(title.getText().toString()) || ValidationUtils.isEmpty(description.getText().toString())) {
             author.setError(getString(R.string.wrong_input));
-        } else if (ValidationUtils.isEmpty(title.getText().toString())) {
             title.setError(getString(R.string.wrong_input));
-        } else if (ValidationUtils.isEmpty(description.getText().toString())) {
             description.setError(getString(R.string.wrong_input));
         } else {
             addNewArticle();
@@ -77,16 +73,17 @@ public class AddArticleActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addNewArticle() {
-        String selectedtype = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
-        List<Article> articles = DatabaseHelper.getInstance().loadArticles();
+        String selectedType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
+        List<Article> articles = database.getArticles();
         int id;
         if (articles.size() != 0) {
             id = articles.get(articles.size() - 1).getId() + 1;
         } else {
             id = 0;
         }
-        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedtype);
-        DatabaseHelper.getInstance().addArticle(article);
+
+        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedType);
+        database.addArticle(article);
         finish();
     }
 }

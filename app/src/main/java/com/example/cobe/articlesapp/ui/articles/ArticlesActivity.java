@@ -15,12 +15,11 @@ import io.realm.Realm;
 
 public class ArticlesActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final DatabaseInterface database = App.getInstance().getDatabase();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles);
+
 
         checkIfDatabaseIsEmpty();
         setUI();
@@ -35,20 +34,15 @@ public class ArticlesActivity extends AppCompatActivity implements View.OnClickL
     public void checkIfDatabaseIsEmpty() {
         Realm.init(getApplicationContext());
 
-        if (database.isEmpty()) {
-            Fragment fragment = new ListIsEmptyFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.articleList, fragment);
-            fragmentTransaction.commit();
-        } else {
-            Fragment fragment = new ArticlesListFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction(); // TODO: 30/03/2018  promijeni u jedan fragment koji ima empty state view!
-            fragmentTransaction.replace(R.id.articleList, fragment);
-            fragmentTransaction.commit();
-        }
+        Fragment fragment = new ArticlesListFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.articleList, fragment);
+        fragmentTransaction.commit();
+
     }
 
     private void setUI() {
+        Realm.init(this);
         View floatingActionButton = findViewById(R.id.fabAddNewArticle);
         floatingActionButton.setOnClickListener(this);
     }

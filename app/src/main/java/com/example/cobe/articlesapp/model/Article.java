@@ -1,5 +1,7 @@
 package com.example.cobe.articlesapp.model;
 
+import com.example.cobe.articlesapp.common.constants.ArticleType;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -51,11 +53,8 @@ public class Article extends RealmObject {
         return description;
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
+    public ArticleType getType() {
+        return ArticleType.valueOf(type);
     }
 }

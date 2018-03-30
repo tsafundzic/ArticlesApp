@@ -14,7 +14,7 @@
         android:padding="@dimen/margin_action_bar">
 
         <ImageView
-            android:id="@+id/ivDetailBack"
+            android:id="@+id/backToHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
@@ -30,7 +30,7 @@
             android:textSize="@dimen/text_action_bar_title" />
 
         <ImageView
-            android:id="@+id/ivDetailEditArticle"
+            android:id="@+id/EditArticle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

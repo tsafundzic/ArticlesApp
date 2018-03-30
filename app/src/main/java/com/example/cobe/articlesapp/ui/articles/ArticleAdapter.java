@@ -20,16 +20,16 @@ import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
 
-    private List<Article> articles = new ArrayList<>();
+    private final List<Article> articles = new ArrayList<>();
 
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
 
-    void setOnArticleClickListener(OnArticleClickListener onArticleClickListener) {
+    public void setOnArticleClickListener(OnArticleClickListener onArticleClickListener) {
         this.onArticleClickListener = onArticleClickListener;
     }
 
-    void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
+    public void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
         this.onArticleLongClickListener = onArticleLongClickListener;
     }
 
@@ -59,5 +59,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         }
     }
 
+    public void removeArticle(int id) {
+        int articleIndex = -1;
 
+        for (Article article : articles) {
+            if (article.getId() == id) {
+                articleIndex = articles.indexOf(article);
+            }
+        }
+
+        if (articleIndex != -1) {
+            articles.remove(articleIndex);
+            notifyItemRemoved(articleIndex);
+        }
+    }
 }

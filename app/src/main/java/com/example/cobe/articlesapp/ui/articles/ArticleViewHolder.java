@@ -15,20 +15,14 @@ import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
 
 public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-    TextView author;
-    TextView title;
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
     private int id;
 
     public ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
         super(itemView);
-        author = itemView.findViewById(R.id.tvArticleAuthor);
-        title = itemView.findViewById(R.id.tvArticleTitle);
         this.onArticleClickListener = onArticleClickListener;
         this.onArticleLongClickListener = onArticleLongClickListener;
-        itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
     }
 
     @Override
@@ -43,8 +37,15 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     }
 
     public void setArticle(Article article) {
-        id = article.getId();
+        this.id = article.getId();
+
+        TextView author = itemView.findViewById(R.id.tvArticleAuthor);
+        TextView title = itemView.findViewById(R.id.tvArticleTitle);
+
         title.setText(article.getTitle());
         author.setText(article.getAuthor());
+
+        itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
     }
 }

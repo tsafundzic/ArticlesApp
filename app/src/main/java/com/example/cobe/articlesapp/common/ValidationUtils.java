@@ -7,6 +7,6 @@ package com.example.cobe.articlesapp.common;
 public class ValidationUtils {
 
     public static boolean isEmpty(String string) {
-        return !(string != null && string.isEmpty() && string.trim().isEmpty());
+        return (string != null && string.isEmpty() && string.trim().isEmpty());
     }
 }
