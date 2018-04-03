@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface DatabaseInterface {
 
-    boolean isEmpty();
-
     List<Article> getArticles();
 
     Article getArticleById(int id);

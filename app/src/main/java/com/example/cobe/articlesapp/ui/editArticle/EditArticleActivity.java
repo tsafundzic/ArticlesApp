@@ -40,7 +40,6 @@ public class EditArticleActivity extends AppCompatActivity {
     @BindView(R.id.saveChanges)
     View saveChanges;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

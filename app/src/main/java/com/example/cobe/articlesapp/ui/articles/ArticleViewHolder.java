@@ -27,7 +27,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     @BindView(R.id.tvArticleTitle)
     TextView title;
 
-    public ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
+    ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
         super(itemView);
         this.onArticleClickListener = onArticleClickListener;
         this.onArticleLongClickListener = onArticleLongClickListener;

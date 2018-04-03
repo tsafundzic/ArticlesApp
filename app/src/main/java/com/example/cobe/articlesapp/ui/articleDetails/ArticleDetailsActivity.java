@@ -17,11 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ArticleDetailsActivity extends AppCompatActivity  {
-
+public class ArticleDetailsActivity extends AppCompatActivity {
 
     private final DatabaseInterface database = App.getInstance().getDatabase();
-
     private int id;
 
     @BindView(R.id.tvDetailTitle)
@@ -46,7 +44,6 @@ public class ArticleDetailsActivity extends AppCompatActivity  {
 
         receiveArticleID();
         setText();
-
     }
 
     @Override
@@ -56,7 +53,7 @@ public class ArticleDetailsActivity extends AppCompatActivity  {
     }
 
     @OnClick(R.id.backToHome)
-    public void goBack(){
+    public void goBack() {
         onBackPressed();
     }
 

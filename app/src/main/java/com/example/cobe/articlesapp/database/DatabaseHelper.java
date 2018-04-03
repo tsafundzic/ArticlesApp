@@ -39,11 +39,6 @@ public class DatabaseHelper implements DatabaseInterface {
     }
 
     @Override
-    public boolean isEmpty() {
-        return realm.isEmpty();
-    }
-
-    @Override
     public List<Article> getArticles() {
         return realm.copyFromRealm(realm.where(Article.class).findAll());
     }

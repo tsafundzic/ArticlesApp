@@ -26,7 +26,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +54,6 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         setAdapter();
         loadArticles();
     }
-
 
     @Override
     public void onResume() {

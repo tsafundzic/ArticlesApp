@@ -1,5 +1,6 @@
 package com.example.cobe.articlesapp.ui.articles;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
 
-    public void setOnArticleClickListener(OnArticleClickListener onArticleClickListener) {
+    void setOnArticleClickListener(OnArticleClickListener onArticleClickListener) {
         this.onArticleClickListener = onArticleClickListener;
     }
 
-    public void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
+    void setOnArticleLongClickListener(OnArticleLongClickListener onArticleLongClickListener) {
         this.onArticleLongClickListener = onArticleLongClickListener;
     }
 
@@ -44,22 +45,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         return articles.size();
     }
 
+    @NonNull
     @Override
-    public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_list_item, parent, false);
         return new ArticleViewHolder(view, onArticleClickListener, onArticleLongClickListener);
     }
 
-
     @Override
-    public void onBindViewHolder(ArticleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article article = articles.get(position);
         if (article != null) {
             holder.setArticle(article);
         }
     }
 
-    public void removeArticle(int id) {
+    void removeArticle(int id) {
         int articleIndex = -1;
 
         for (Article article : articles) {

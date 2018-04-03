@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.cobe.articlesapp.App;
@@ -23,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddArticleActivity extends AppCompatActivity  {
+public class AddArticleActivity extends AppCompatActivity {
 
     private final DatabaseInterface database = App.getInstance().getDatabase();
 
@@ -58,12 +57,12 @@ public class AddArticleActivity extends AppCompatActivity  {
     }
 
     @OnClick(R.id.backToDetails)
-    public void goBack(){
+    public void goBack() {
         onBackPressed();
     }
 
     @OnClick(R.id.saveNewArticle)
-    public void saveNewArticle(){
+    public void saveNewArticle() {
         checkIfInputsAreOK();
     }
 
