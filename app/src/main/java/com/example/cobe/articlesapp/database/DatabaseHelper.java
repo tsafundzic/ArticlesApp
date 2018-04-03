@@ -29,7 +29,7 @@ public class DatabaseHelper implements DatabaseInterface {
 
     @Override
     public void deleteArticle(int id) {
-        Article article = getArticleById(id);
+        Article article = realm.where(Article.class).equalTo("id", id).findFirst();
 
         if (article != null) {
             realm.beginTransaction();

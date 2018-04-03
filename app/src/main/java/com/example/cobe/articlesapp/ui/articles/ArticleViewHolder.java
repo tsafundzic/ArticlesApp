@@ -32,7 +32,6 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
         this.onArticleClickListener = onArticleClickListener;
         this.onArticleLongClickListener = onArticleLongClickListener;
 
-
         ButterKnife.bind(this, itemView);
     }
 
