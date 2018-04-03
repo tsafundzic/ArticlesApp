@@ -9,6 +9,9 @@ import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
 import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by cobe on 27/03/2018.
  */
@@ -19,10 +22,18 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     private OnArticleLongClickListener onArticleLongClickListener;
     private int id;
 
+    @BindView(R.id.tvArticleAuthor)
+    TextView author;
+    @BindView(R.id.tvArticleTitle)
+    TextView title;
+
     public ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
         super(itemView);
         this.onArticleClickListener = onArticleClickListener;
         this.onArticleLongClickListener = onArticleLongClickListener;
+
+
+        ButterKnife.bind(this, itemView);
     }
 
     @Override
@@ -38,9 +49,6 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
 
     public void setArticle(Article article) {
         this.id = article.getId();
-
-        TextView author = itemView.findViewById(R.id.tvArticleAuthor);
-        TextView title = itemView.findViewById(R.id.tvArticleTitle);
 
         title.setText(article.getTitle());
         author.setText(article.getAuthor());

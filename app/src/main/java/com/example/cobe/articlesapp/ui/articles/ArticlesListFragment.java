@@ -24,6 +24,8 @@ import com.example.cobe.articlesapp.ui.listeners.OnDeleteArticleListener;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 
 /**
@@ -34,27 +36,26 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     private final ArticleAdapter adapter = new ArticleAdapter();
     private final DatabaseInterface database = App.getInstance().getDatabase();
 
-    private RecyclerView recyclerView;
-    private TextView emptyStateView;
+    @BindView(R.id.articles)
+    RecyclerView recyclerView;
+    @BindView(R.id.emptyStateView)
+    TextView emptyStateView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_articles_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_articles_list, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setUI(view);
         setAdapter();
         loadArticles();
     }
 
-    private void setUI(View view) {
-        recyclerView = view.findViewById(R.id.articles);
-        emptyStateView = view.findViewById(R.id.emptyStateView);
-    }
 
     @Override
     public void onResume() {

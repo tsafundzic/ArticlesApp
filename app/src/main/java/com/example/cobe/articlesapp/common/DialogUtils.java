@@ -14,13 +14,13 @@ import com.example.cobe.articlesapp.ui.listeners.OnDeleteArticleListener;
 
 public class DialogUtils {
 
-    public static void showDeleteArticleDialog(Context from, Article article, final OnDeleteArticleListener listener) {
+    public static void showDeleteArticleDialog(Context from, final Article article, final OnDeleteArticleListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(from);
         builder.setMessage(from.getString(R.string.delete_article_dialog_are_you_sure_message, article.getTitle()))
                 .setCancelable(false)
                 .setPositiveButton(from.getString(R.string.general_positive_button), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.deleteArticle(id);
+                        listener.deleteArticle(article.getId());
                     }
                 })
                 .setNegativeButton(from.getString(R.string.general_negative_button), new DialogInterface.OnClickListener() {

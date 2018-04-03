@@ -9,29 +9,41 @@ import android.widget.TextView;
 
 import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.common.constants.ArticleType;
 import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.editArticle.EditArticleActivity;
 
-public class ArticleDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class ArticleDetailsActivity extends AppCompatActivity  {
 
 
     private final DatabaseInterface database = App.getInstance().getDatabase();
 
-    private TextView title;
-    private TextView author;
-    private TextView type;
-    private TextView description;
     private int id;
 
+    @BindView(R.id.tvDetailTitle)
+    TextView title;
+    @BindView(R.id.tvDetailAuthor)
+    TextView author;
+    @BindView(R.id.tvDetailType)
+    TextView type;
+    @BindView(R.id.tvDetailDescription)
+    TextView description;
+    @BindView(R.id.backToHome)
+    View back;
+    @BindView(R.id.EditArticle)
+    View editArticle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
 
-        setUI();
+        ButterKnife.bind(this);
+
         receiveArticleID();
         setText();
 
@@ -41,6 +53,16 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
     protected void onResume() {
         setText();
         super.onResume();
+    }
+
+    @OnClick(R.id.backToHome)
+    public void goBack(){
+        onBackPressed();
+    }
+
+    @OnClick(R.id.EditArticle)
+    public void startEditing() {
+        startActivity(EditArticleActivity.getLaunchIntent(this, id));
     }
 
     private void setText() {
@@ -59,38 +81,11 @@ public class ArticleDetailsActivity extends AppCompatActivity implements View.On
         id = intent.getIntExtra("ID", 0);
     }
 
-    private void setUI() {
-        title = findViewById(R.id.tvDetailTitle);
-        author = findViewById(R.id.tvDetailAuthor);
-        type = findViewById(R.id.tvDetailType);
-        description = findViewById(R.id.tvDetailDescription);
-        View back = findViewById(R.id.backToHome);
-        View editArticle = findViewById(R.id.EditArticle);
-
-        back.setOnClickListener(this);
-        editArticle.setOnClickListener(this);
-
-    }
-
     public static Intent getLaunchIntent(Context from, int id) {
         Intent intent = new Intent(from, ArticleDetailsActivity.class);
         intent.putExtra("ID", id);
         return intent;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.backToHome:
-                onBackPressed();
-                break;
-            case R.id.EditArticle:
-                startEditing();
-                break;
-        }
-    }
 
-    private void startEditing() {
-        startActivity(EditArticleActivity.getLauchIntent(this, id));
-    }
 }

@@ -16,37 +16,55 @@ import com.example.cobe.articlesapp.common.constants.ArticleType;
 import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
 
-public class EditArticleActivity extends AppCompatActivity implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class EditArticleActivity extends AppCompatActivity {
 
     private final DatabaseInterface database = App.getInstance().getDatabase();
 
-    private EditText author;
-    private EditText title;
-    private EditText description;
-    private Spinner type;
     private Article article;
     int id;
+
+    @BindView(R.id.etEditAuthor)
+    EditText author;
+    @BindView(R.id.etEditTitle)
+    EditText title;
+    @BindView(R.id.etEditDescription)
+    EditText description;
+    @BindView(R.id.spEditTypes)
+    Spinner type;
+    @BindView(R.id.back)
+    View back;
+    @BindView(R.id.saveChanges)
+    View saveChanges;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_article);
 
-        setUI();
+        ButterKnife.bind(this);
+
         receiveArticleID();
         showData();
     }
 
-    private void setUI() {
-        author = findViewById(R.id.etEditAuthor);
-        title = findViewById(R.id.etEditTitle);
-        description = findViewById(R.id.etEditDescription);
-        type = findViewById(R.id.spEditTypes);
-        View save = findViewById(R.id.saveChanges);
-        View back = findViewById(R.id.back);
+    @OnClick(R.id.back)
+    public void goBack() {
+        onBackPressed();
+    }
 
-        save.setOnClickListener(this);
-        back.setOnClickListener(this);
+    @OnClick(R.id.saveChanges)
+    public void updateData() {
+        String selectedType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
+        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedType);
+        database.addArticle(article);
+
+        Toast.makeText(this, getString(R.string.updated_successuful), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void receiveArticleID() {
@@ -63,29 +81,9 @@ public class EditArticleActivity extends AppCompatActivity implements View.OnCli
         type.setSelection(ArticleType.getTypeIndex(article.getType()));
     }
 
-    public static Intent getLauchIntent(Context from, int id) {
+    public static Intent getLaunchIntent(Context from, int id) {
         Intent intent = new Intent(from, EditArticleActivity.class);
         intent.putExtra("ID", id);
         return intent;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.saveChanges:
-                updateData();
-                Toast.makeText(this, getString(R.string.updated_successuful), Toast.LENGTH_SHORT).show();
-                finish();
-                break;
-            case R.id.back:
-                finish();
-                break;
-        }
-    }
-
-    private void updateData() {
-        String selectedType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
-        Article article = new Article(id, author.getText().toString(), title.getText().toString(), description.getText().toString(), selectedType);
-        database.addArticle(article);
     }
 }

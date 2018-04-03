@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.cobe.articlesapp.App;
@@ -18,54 +19,60 @@ import com.example.cobe.articlesapp.model.Article;
 
 import java.util.List;
 
-public class AddArticleActivity extends AppCompatActivity implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class AddArticleActivity extends AppCompatActivity  {
 
     private final DatabaseInterface database = App.getInstance().getDatabase();
 
-    private EditText author;
-    private EditText title;
-    private EditText description;
-    private Spinner type;
+    @BindView(R.id.etAuthor)
+    EditText author;
+    @BindView(R.id.etTitle)
+    EditText title;
+    @BindView(R.id.etDescription)
+    EditText description;
+    @BindView(R.id.spTypes)
+    Spinner type;
+    @BindView(R.id.backToDetails)
+    View back;
+    @BindView(R.id.saveNewArticle)
+    View saveNewArticle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_article);
+        ButterKnife.bind(this);
+
         setUI();
     }
 
     private void setUI() {
-        author = findViewById(R.id.etAuthor);
-        title = findViewById(R.id.etTitle);
-        description = findViewById(R.id.etDescription);
-        type = findViewById(R.id.spTypes);
         type.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ArticleType.values()));
-        View save = findViewById(R.id.saveNewArticle);
-        View back = findViewById(R.id.backToDetails);
-        back.setOnClickListener(this);
-        save.setOnClickListener(this);
     }
 
     public static Intent getLaunchIntent(Context from) {
         return new Intent(from, AddArticleActivity.class);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.backToDetails:
-                onBackPressed();
-                break;
-            case R.id.saveNewArticle:
-                checkIfInputsAreOK();
-                break;
-        }
+    @OnClick(R.id.backToDetails)
+    public void goBack(){
+        onBackPressed();
+    }
+
+    @OnClick(R.id.saveNewArticle)
+    public void saveNewArticle(){
+        checkIfInputsAreOK();
     }
 
     private void checkIfInputsAreOK() {
-        if (ValidationUtils.isEmpty(author.getText().toString()) || ValidationUtils.isEmpty(title.getText().toString()) || ValidationUtils.isEmpty(description.getText().toString())) {
+        if (ValidationUtils.isEmpty(author.getText().toString())) {
             author.setError(getString(R.string.wrong_input));
+        } else if (ValidationUtils.isEmpty(title.getText().toString())) {
             title.setError(getString(R.string.wrong_input));
+        } else if (ValidationUtils.isEmpty(description.getText().toString())) {
             description.setError(getString(R.string.wrong_input));
         } else {
             addNewArticle();
