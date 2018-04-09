@@ -18,9 +18,9 @@ import com.example.cobe.articlesapp.common.DialogUtils;
 import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.ui.articleDetails.ArticleDetailsActivity;
-import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
-import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
-import com.example.cobe.articlesapp.ui.listeners.OnDeleteArticleListener;
+import com.example.cobe.articlesapp.listeners.OnArticleClickListener;
+import com.example.cobe.articlesapp.listeners.OnArticleLongClickListener;
+import com.example.cobe.articlesapp.listeners.OnDeleteArticleListener;
 
 import java.util.List;
 

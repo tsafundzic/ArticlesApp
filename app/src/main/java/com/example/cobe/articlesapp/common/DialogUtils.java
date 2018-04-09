@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.model.Article;
-import com.example.cobe.articlesapp.ui.listeners.OnDeleteArticleListener;
+import com.example.cobe.articlesapp.listeners.OnDeleteArticleListener;
 
 /**
  * Created by cobe on 30/03/2018.

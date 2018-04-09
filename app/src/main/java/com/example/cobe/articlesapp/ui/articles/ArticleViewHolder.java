@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.model.Article;
-import com.example.cobe.articlesapp.ui.listeners.OnArticleClickListener;
-import com.example.cobe.articlesapp.ui.listeners.OnArticleLongClickListener;
+import com.example.cobe.articlesapp.listeners.OnArticleClickListener;
+import com.example.cobe.articlesapp.listeners.OnArticleLongClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

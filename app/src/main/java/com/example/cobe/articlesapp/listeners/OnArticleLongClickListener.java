@@ -1,4 +1,4 @@
-package com.example.cobe.articlesapp.ui.listeners;
+package com.example.cobe.articlesapp.listeners;
 
 /**
  * Created by cobe on 27/03/2018.
