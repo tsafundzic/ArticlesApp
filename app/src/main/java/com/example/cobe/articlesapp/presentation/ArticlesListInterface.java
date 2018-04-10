@@ -12,9 +12,9 @@ public interface ArticlesListInterface {
 
     interface View {
 
-        void setList(List<Article> articles);
+        void showItems(List<Article> articles);
 
-        void setEmptyList(List<Article> articles);
+        void showEmptyState();
 
         void startItemDelete(Article article);
 

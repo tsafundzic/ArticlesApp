@@ -18,6 +18,7 @@ import com.example.cobe.articlesapp.presentation.implementation.AddArticlePresen
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class AddArticleActivity extends AppCompatActivity implements AddArticleInterface.View {
 
@@ -61,7 +62,12 @@ public class AddArticleActivity extends AppCompatActivity implements AddArticleI
 
     @OnClick(R.id.saveNewArticle)
     public void saveNewArticle() {
-        presenter.onArticleAdd(author.getText().toString(), title.getText().toString(), description.getText().toString(), type.getItemAtPosition(type.getSelectedItemPosition()).toString());
+        presenter.onAddTapped(author.getText().toString(), title.getText().toString(), description.getText().toString(), type.getItemAtPosition(type.getSelectedItemPosition()).toString());
+    }
+
+    @OnTextChanged(R.id.etAuthor)
+    void onAuthorNameChanged(String authoName) {
+//        presenter.onAuthorNameChanged(authoName);
     }
 
     @Override
@@ -80,7 +86,7 @@ public class AddArticleActivity extends AppCompatActivity implements AddArticleI
     }
 
     @Override
-    public void finished() {
+    public void onArticleAdded() {
         finish();
     }
 

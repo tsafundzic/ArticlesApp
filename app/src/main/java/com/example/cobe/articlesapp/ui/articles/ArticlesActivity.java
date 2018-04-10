@@ -15,9 +15,6 @@ import butterknife.OnClick;
 
 public class ArticlesActivity extends AppCompatActivity {
 
-    @BindView(R.id.fabAddNewArticle)
-    View floatingActionButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +27,8 @@ public class ArticlesActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        checkIfDatabaseIsEmpty();
         super.onResume();
+        checkIfDatabaseIsEmpty();
     }
 
     public void checkIfDatabaseIsEmpty() {

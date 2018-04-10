@@ -14,12 +14,12 @@ public interface AddArticleInterface {
 
         void setDescriptionError();
 
-        void finished();
+        void onArticleAdded();
 
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void onArticleAdd(String author, String title, String description, String type);
+        void onAddTapped(String author, String title, String description, String type);
     }
 }

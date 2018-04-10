@@ -20,18 +20,22 @@ public class ArticleListPresenterImpl implements ArticlesListInterface.Presenter
     }
 
     @Override
+    public void setView(ArticlesListInterface.View view) {
+        this.view = view;
+    }
+
+    @Override
     public void getArticles() {
         showData();
     }
 
     private void showData() {
         List<Article> articles = articleInteractor.getArticles();
-        if (articles != null) {
-            if (articles.size() != 0) {
-                view.setList(articles);
-            } else {
-                view.setEmptyList(articles);
-            }
+
+        if (!articles.isEmpty()) {
+            view.showItems(articles);
+        } else {
+            view.showEmptyState();
         }
     }
 
@@ -48,10 +52,5 @@ public class ArticleListPresenterImpl implements ArticlesListInterface.Presenter
     @Override
     public void deleteSelectedArticle(int id) {
         articleInteractor.deleteArticle(id);
-    }
-
-    @Override
-    public void setView(ArticlesListInterface.View view) {
-        this.view = view;
     }
 }

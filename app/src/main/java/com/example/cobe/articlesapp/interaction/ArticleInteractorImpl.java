@@ -17,16 +17,15 @@ public class ArticleInteractorImpl implements ArticleInteractorInterface {
     @Override
     public void addNewArticle(String author, String title, String description, String type) {
         List<Article> articles = database.getArticles();
-        int id;
 
-        if (articles.size() != 0) {
-            id = articles.get(articles.size() - 1).getId() + 1;
-        } else {
-            id = 0;
-        }
-
-        Article article = new Article(id, author, title, description, type);
+        Article article = new Article(getNewArticleId(articles), author, title, description, type);
         database.addArticle(article);
+    }
+
+    private int getNewArticleId(List<Article> articles) {
+        int size = articles.size();
+
+        return size != 0 ? (articles.get(size - 1).getId() + 1) : 0;
     }
 
     @Override

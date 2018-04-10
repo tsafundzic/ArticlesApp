@@ -18,16 +18,17 @@ import butterknife.ButterKnife;
 
 public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
+    @BindView(R.id.tvArticleAuthor)
+    TextView author;
+
+    @BindView(R.id.tvArticleTitle)
+    TextView title;
+
     private OnArticleClickListener onArticleClickListener;
     private OnArticleLongClickListener onArticleLongClickListener;
     private int id;
 
-    @BindView(R.id.tvArticleAuthor)
-    TextView author;
-    @BindView(R.id.tvArticleTitle)
-    TextView title;
-
-    ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
+    public ArticleViewHolder(View itemView, OnArticleClickListener onArticleClickListener, OnArticleLongClickListener onArticleLongClickListener) {
         super(itemView);
         this.onArticleClickListener = onArticleClickListener;
         this.onArticleLongClickListener = onArticleLongClickListener;

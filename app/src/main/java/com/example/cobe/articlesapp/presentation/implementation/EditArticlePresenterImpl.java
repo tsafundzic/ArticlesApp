@@ -10,8 +10,9 @@ import com.example.cobe.articlesapp.presentation.EditArticleInterface;
 
 public class EditArticlePresenterImpl implements EditArticleInterface.Presenter {
 
-    private EditArticleInterface.View view;
     private final ArticleInteractorInterface articleInteractor;
+    private EditArticleInterface.View view;
+
     private int articleId;
 
     public EditArticlePresenterImpl(ArticleInteractorInterface articleInteractor) {
@@ -21,16 +22,6 @@ public class EditArticlePresenterImpl implements EditArticleInterface.Presenter 
     @Override
     public void setView(EditArticleInterface.View view) {
         this.view = view;
-    }
-
-    @Override
-    public void editArticle(int id, String author, String title, String description, String type) {
-        articleInteractor.updateArticle(id, author, title, description, type);
-    }
-
-    @Override
-    public void onUpdateTapped() {
-        view.startUpdate(articleId);
     }
 
     @Override
@@ -48,5 +39,15 @@ public class EditArticlePresenterImpl implements EditArticleInterface.Presenter 
         view.setDescription(article.getDescription());
         view.setType(article.getType());
 
+    }
+
+    @Override
+    public void editArticle(int id, String author, String title, String description, String type) {
+        articleInteractor.updateArticle(id, author, title, description, type);
+    }
+
+    @Override
+    public void onUpdateTapped() {
+        view.startUpdate(articleId);
     }
 }

@@ -68,8 +68,8 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
 
     @Override
     public void onResume() {
-        presenter.refreshData();
         super.onResume();
+        presenter.refreshData();
     }
 
     private void setAdapter() {
@@ -98,7 +98,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     }
 
     @Override
-    public void setList(List<Article> articles) {
+    public void showItems(List<Article> articles) {
         adapter.setArticles(articles);
         adapter.notifyDataSetChanged();
 
@@ -107,10 +107,7 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     }
 
     @Override
-    public void setEmptyList(List<Article> articles) {
-        adapter.setArticles(articles);
-        adapter.notifyDataSetChanged();
-
+    public void showEmptyState() {
         recyclerView.setVisibility(View.GONE);
         emptyStateView.setVisibility(View.VISIBLE);
     }

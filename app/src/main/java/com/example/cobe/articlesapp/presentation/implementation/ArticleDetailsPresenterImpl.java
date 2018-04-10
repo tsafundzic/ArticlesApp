@@ -10,8 +10,9 @@ import com.example.cobe.articlesapp.presentation.ArticleDetailsInterface;
 
 public class ArticleDetailsPresenterImpl implements ArticleDetailsInterface.Presenter {
 
-    private ArticleDetailsInterface.View view;
     private final ArticleInteractorInterface articleInteractor;
+    private ArticleDetailsInterface.View view;
+
     private int articleId;
 
     public ArticleDetailsPresenterImpl(ArticleInteractorInterface articleInteractor) {
@@ -32,6 +33,7 @@ public class ArticleDetailsPresenterImpl implements ArticleDetailsInterface.Pres
 
     private void showData() {
         Article article = articleInteractor.getArticle(articleId);
+
         if (article != null) {
             view.showAuthor(article.getAuthor());
             view.showTitle(article.getTitle());

@@ -80,7 +80,6 @@ public class ArticleDetailsActivity extends AppCompatActivity implements Article
         finish();
     }
 
-
     @Override
     public void showAuthor(String authorText) {
         author.setText(String.format(getString(R.string.author_format), authorText));
