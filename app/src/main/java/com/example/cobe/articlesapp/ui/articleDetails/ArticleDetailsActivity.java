@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
-import com.example.cobe.articlesapp.database.DatabaseInterface;
-import com.example.cobe.articlesapp.model.Article;
+import com.example.cobe.articlesapp.common.constants.ArticleType;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorImpl;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorInterface;
 import com.example.cobe.articlesapp.presentation.ArticleDetailsInterface;
 import com.example.cobe.articlesapp.presentation.implementation.ArticleDetailsPresenterImpl;
 import com.example.cobe.articlesapp.ui.editArticle.EditArticleActivity;
@@ -19,9 +19,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ArticleDetailsActivity extends AppCompatActivity implements ArticleDetailsInterface.View {
-
-    private final DatabaseInterface database = App.getInstance().getDatabase();
-    private int id;
 
     @BindView(R.id.tvDetailTitle)
     TextView title;
@@ -52,42 +49,60 @@ public class ArticleDetailsActivity extends AppCompatActivity implements Article
 
         ButterKnife.bind(this);
 
-        presenter = new ArticleDetailsPresenterImpl();
-        presenter.setView(this);
+        injectDependencies();
         receiveArticleID();
-        setText();
     }
 
     @Override
     protected void onResume() {
-        setText();
+        presenter.refreshData();
         super.onResume();
     }
 
-    @OnClick(R.id.EditArticle)
-    public void startEditing() {
-        startActivity(EditArticleActivity.getLaunchIntent(this, id));
-    }
-
-    private void setText() {
-        Article article = database.getArticleById(id);
-
-        if (article != null) {
-            title.setText(article.getTitle());
-            author.setText(String.format(getString(R.string.author_format), article.getAuthor()));
-            type.setText(String.format(getString(R.string.type_format), article.getType().toString()));
-            description.setText(article.getDescription());
-        }
+    private void injectDependencies() {
+        ArticleInteractorInterface articleInteractor = new ArticleInteractorImpl();
+        presenter = new ArticleDetailsPresenterImpl(articleInteractor);
+        presenter.setView(this);
     }
 
     private void receiveArticleID() {
         Intent intent = getIntent();
-        id = intent.getIntExtra(ID, 0);
+        presenter.getArticle(intent.getIntExtra(ID, 0));
+    }
+
+    @OnClick(R.id.EditArticle)
+    public void startEditing() {
+        presenter.onEditTapped();
     }
 
     @OnClick(R.id.backToHome)
     public void goBack() {
-        onBackPressed();
+        finish();
     }
 
+
+    @Override
+    public void showAuthor(String authorText) {
+        author.setText(String.format(getString(R.string.author_format), authorText));
+    }
+
+    @Override
+    public void showTitle(String titleText) {
+        title.setText(titleText);
+    }
+
+    @Override
+    public void showDescription(String descriptionText) {
+        description.setText(descriptionText);
+    }
+
+    @Override
+    public void showType(ArticleType typeText) {
+        type.setText(String.format(getString(R.string.type_format), typeText));
+    }
+
+    @Override
+    public void startEdit(int articleId) {
+        startActivity(EditArticleActivity.getLaunchIntent(this, articleId));
+    }
 }

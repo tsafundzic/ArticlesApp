@@ -1,12 +1,9 @@
 package com.example.cobe.articlesapp.presentation.implementation;
 
-import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.common.ValidationUtils;
-import com.example.cobe.articlesapp.database.DatabaseInterface;
-import com.example.cobe.articlesapp.model.Article;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorInterface;
 import com.example.cobe.articlesapp.presentation.AddArticleInterface;
 
-import java.util.List;
 
 /**
  * Created by cobe on 09/04/2018.
@@ -15,10 +12,10 @@ import java.util.List;
 public class AddArticlePresenterImpl implements AddArticleInterface.Presenter {
 
     private AddArticleInterface.View view;
-    private final DatabaseInterface database = App.getInstance().getDatabase();
+    private final ArticleInteractorInterface articleInteractor;
 
-    public AddArticlePresenterImpl() {
-
+    public AddArticlePresenterImpl(ArticleInteractorInterface articleInteractor) {
+        this.articleInteractor = articleInteractor;
     }
 
     @Override
@@ -35,15 +32,7 @@ public class AddArticlePresenterImpl implements AddArticleInterface.Presenter {
         } else if (ValidationUtils.isEmpty(description)) {
             view.setDescriptionError();
         } else {
-            List<Article> articles = database.getArticles();
-            int id;
-            if (articles.size() != 0) {
-                id = articles.get(articles.size() - 1).getId() + 1;
-            } else {
-                id = 0;
-            }
-            Article article = new Article(id, author, title, description, type);
-            database.addArticle(article);
+            articleInteractor.addNewArticle(author, title, description, type);
             view.finished();
         }
     }

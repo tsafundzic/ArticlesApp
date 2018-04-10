@@ -17,6 +17,7 @@ import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.DialogUtils;
 import com.example.cobe.articlesapp.database.DatabaseInterface;
 import com.example.cobe.articlesapp.model.Article;
+import com.example.cobe.articlesapp.presentation.ArticlesListInterface;
 import com.example.cobe.articlesapp.ui.articleDetails.ArticleDetailsActivity;
 import com.example.cobe.articlesapp.listeners.OnArticleClickListener;
 import com.example.cobe.articlesapp.listeners.OnArticleLongClickListener;
@@ -30,20 +31,23 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticlesListFragment extends Fragment implements OnArticleClickListener, OnArticleLongClickListener, OnDeleteArticleListener {
+public class ArticlesListFragment extends Fragment implements OnArticleClickListener, OnArticleLongClickListener, OnDeleteArticleListener, ArticlesListInterface.View {
 
     private final ArticleAdapter adapter = new ArticleAdapter();
     private final DatabaseInterface database = App.getInstance().getDatabase();
 
     @BindView(R.id.articles)
     RecyclerView recyclerView;
+
     @BindView(R.id.emptyStateView)
     TextView emptyStateView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_articles_list, container, false);
+
         ButterKnife.bind(this, view);
+
         return view;
     }
 

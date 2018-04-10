@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.constants.ArticleType;
-import com.example.cobe.articlesapp.database.DatabaseInterface;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorImpl;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorInterface;
 import com.example.cobe.articlesapp.presentation.AddArticleInterface;
 import com.example.cobe.articlesapp.presentation.implementation.AddArticlePresenterImpl;
 
@@ -20,8 +20,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AddArticleActivity extends AppCompatActivity implements AddArticleInterface.View {
-
-    private final DatabaseInterface database = App.getInstance().getDatabase();
 
     @BindView(R.id.etAuthor)
     EditText author;
@@ -47,9 +45,14 @@ public class AddArticleActivity extends AppCompatActivity implements AddArticleI
         setContentView(R.layout.activity_add_article);
         ButterKnife.bind(this);
 
-        presenter = new AddArticlePresenterImpl();
-        presenter.setView(this);
+        injectDependencies();
         setUI();
+    }
+
+    private void injectDependencies() {
+        ArticleInteractorInterface articleInteractor = new ArticleInteractorImpl();
+        presenter = new AddArticlePresenterImpl(articleInteractor);
+        presenter.setView(this);
     }
 
     private void setUI() {
