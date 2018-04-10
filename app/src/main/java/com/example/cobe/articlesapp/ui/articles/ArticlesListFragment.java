@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.cobe.articlesapp.App;
 import com.example.cobe.articlesapp.R;
 import com.example.cobe.articlesapp.common.DialogUtils;
-import com.example.cobe.articlesapp.database.DatabaseInterface;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorImpl;
+import com.example.cobe.articlesapp.interaction.ArticleInteractorInterface;
 import com.example.cobe.articlesapp.model.Article;
 import com.example.cobe.articlesapp.presentation.ArticlesListInterface;
+import com.example.cobe.articlesapp.presentation.implementation.ArticleListPresenterImpl;
 import com.example.cobe.articlesapp.ui.articleDetails.ArticleDetailsActivity;
 import com.example.cobe.articlesapp.listeners.OnArticleClickListener;
 import com.example.cobe.articlesapp.listeners.OnArticleLongClickListener;
@@ -28,13 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ArticlesListFragment extends Fragment implements OnArticleClickListener, OnArticleLongClickListener, OnDeleteArticleListener, ArticlesListInterface.View {
 
     private final ArticleAdapter adapter = new ArticleAdapter();
-    private final DatabaseInterface database = App.getInstance().getDatabase();
 
     @BindView(R.id.articles)
     RecyclerView recyclerView;
@@ -42,11 +39,15 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
     @BindView(R.id.emptyStateView)
     TextView emptyStateView;
 
+    private ArticlesListInterface.Presenter presenter;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_articles_list, container, false);
 
         ButterKnife.bind(this, view);
+
+        injectDependencies();
 
         return view;
     }
@@ -56,26 +57,19 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
         super.onViewCreated(view, savedInstanceState);
 
         setAdapter();
-        loadArticles();
+        presenter.getArticles();
+    }
+
+    private void injectDependencies() {
+        ArticleInteractorInterface articleInteractor = new ArticleInteractorImpl();
+        presenter = new ArticleListPresenterImpl(articleInteractor);
+        presenter.setView(this);
     }
 
     @Override
     public void onResume() {
-        loadArticles();
+        presenter.refreshData();
         super.onResume();
-    }
-
-    private void loadArticles() {
-        List<Article> articles = database.getArticles();
-        adapter.setArticles(articles);
-        adapter.notifyDataSetChanged();
-        if (articles.size() == 0) {
-            recyclerView.setVisibility(View.GONE);
-            emptyStateView.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyStateView.setVisibility(View.GONE);
-        }
     }
 
     private void setAdapter() {
@@ -94,12 +88,35 @@ public class ArticlesListFragment extends Fragment implements OnArticleClickList
 
     @Override
     public void onArticleLongClick(int id) {
-        DialogUtils.showDeleteArticleDialog(getActivity(), database.getArticleById(id), this);
+        presenter.onItemLongClick(id);
     }
 
     @Override
     public void deleteArticle(int id) {
-        database.deleteArticle(id);
+        presenter.deleteSelectedArticle(id);
         adapter.removeArticle(id);
+    }
+
+    @Override
+    public void setList(List<Article> articles) {
+        adapter.setArticles(articles);
+        adapter.notifyDataSetChanged();
+
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyStateView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setEmptyList(List<Article> articles) {
+        adapter.setArticles(articles);
+        adapter.notifyDataSetChanged();
+
+        recyclerView.setVisibility(View.GONE);
+        emptyStateView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void startItemDelete(Article article) {
+        DialogUtils.showDeleteArticleDialog(getActivity(), article, this);
     }
 }

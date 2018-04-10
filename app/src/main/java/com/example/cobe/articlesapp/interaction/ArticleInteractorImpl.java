@@ -39,4 +39,14 @@ public class ArticleInteractorImpl implements ArticleInteractorInterface {
     public Article getArticle(int id) {
         return database.getArticleById(id);
     }
+
+    @Override
+    public List<Article> getArticles() {
+        return database.getArticles();
+    }
+
+    @Override
+    public void deleteArticle(int id) {
+        database.deleteArticle(id);
+    }
 }
